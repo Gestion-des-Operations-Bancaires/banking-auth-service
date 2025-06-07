@@ -21,5 +21,5 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
-  secret: hdrOsJuctPM7gmjq6qosI5zyWiPKmF
+  secret: 6D7662M7gmjq6qo736C35616B70sI5zyWiPKmrOsJuctP766B37396F746A71647F
   expiration: 86400000 # 24 hours
