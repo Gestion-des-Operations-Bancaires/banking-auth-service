@@ -7,6 +7,7 @@ import com.example.auth_service.dto.RegisterDTO;
 import com.example.auth_service.entity.Role;
 import com.example.auth_service.entity.UserEntity;
 import com.example.auth_service.repository.UserRepository;
+import com.example.auth_service.service.UserDetailsServiceImpl;
 import com.example.auth_service.utils.JwtUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
+
     @GetMapping("/hello")
     public String hello() {
         return "Hello from reporting Service!";
@@ -45,8 +49,10 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
+        UserEntity user = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication, user.getId());
 
         System.out.println(jwt);
 

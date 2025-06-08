@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/bankdb?createDatabaseIfNotExist=true
     username: postgres
-    password: 1234567890
+    password: user24
     driver-class-name: org.postgresql.Driver
 
   jpa:
