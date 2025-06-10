@@ -64,6 +64,16 @@ public class AuthController {
                 userDetails.getEmail()));
     }
 
+    @GetMapping("/user-details/{id}")
+    public ResponseEntity<?> getUserDetails(@PathVariable Long id) {
+
+        UserEntity userDetails = userRepository.findById(id).orElseThrow();
+        return ResponseEntity.ok(new JwtResponse(null,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail()));
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterDTO signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
